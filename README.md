@@ -1,12 +1,12 @@
 
 
-# Bookinfo Sample
+# Bookinfo
 
 
 
 **Note**: We need the owner of the PR to perform the appropriate testing with built/pushed images to their own docker repository before we would build/push images to the official Istio repository.
 
-## General Setup
+## Setup
 
 ```bash
 # This defines the docker hub to use when running integration tests and building docker images
@@ -19,7 +19,7 @@ export HUB="docker.io/$USER"
 export TAG=<version number>
 ```
 
-## Compile code
+## code
 
 ```bash
 cd samples/bookinfo
@@ -54,7 +54,7 @@ WARNING: No output specified for examples-bookinfo-mysqldb, examples-bookinfo-ra
 
 The code for the bookinfo sample is now compiled and built.  The bookinfo versions are different from Istio versions since the sample should work with any version of Istio.
 
-## Build docker images
+## Docker images
 
 ```bash
 cd samples/bookinfo
@@ -103,7 +103,7 @@ $ BOOKINFO_TAG=test1.0 BOOKINFO_HUB=docker.io/user1  src/build-services.sh --loa
 
 Docker images are now created.
 
-## Push docker images to docker hub
+## Docker hub integration
 
 After the local build is successful, you will need to push the images to Docker hub.  You may need to login to Docker before you run the command using `docker login`.
 
@@ -148,7 +148,7 @@ $ BOOKINFO_TAG=test1.0 BOOKINFO_HUB=docker.io/user1  src/build-services.sh --pus
 + find ./samples/bookinfo/platform -name '*bookinfo*.yaml' -exec sed -i.bak 's#image:.*\(\/examples-bookinfo-.*\):.*#image: docker.io\/user1\1:test1.0#g' '{}' +
 ```
 
-## Update YAML files to point to the newly created images
+## YAML files
 
 You need to update the YAML file with the latest tag that you used during the build, eg: `$HUB:$TAG`.
 
@@ -188,7 +188,7 @@ WARNING: No output specified for examples-bookinfo-mysqldb, examples-bookinfo-ra
 
 Verify that expected image eg: `user1/examples-bookinfo-*:test1.0` is updated in `platform/kube/bookinfo*.yaml` files.
 
-## Tests
+## Test
 
 Test that the bookinfo samples work with the latest image eg: `user1/examples-bookinfo-*:test1.0` that you pushed.
 
